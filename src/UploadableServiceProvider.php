@@ -13,7 +13,7 @@ class UploadableServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->loadMigrationsFrom(__DIR__ . '/create_files_table.php');
+        $this->loadMigrationsFrom(__DIR__ . '/migrations');
     }
 
     /**
