@@ -4,12 +4,13 @@ namespace Unisharp\Uploadable;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Unisharp\Uploadable\Uploader;
 
 class UploadController extends Controller
 {
-    public function store(Request $request)
+    public function store(Request $request, $uploader = null)
     {
-        $file = (new File)->upload($request, 'file');
+        $file = ($uploader ?: new Uploader)->upload($request);
 
         if (is_null($file)) {
             return ['success' => false];
@@ -18,9 +19,9 @@ class UploadController extends Controller
         return $file;
     }
 
-    public function delete(File $file)
+    public function delete(File $file, $uploader = null)
     {
-        (new File)->removeFiles([$file->id]);
+        ($uploader ?: new Uploader)->removeFiles([$file->id]);
 
         return ['success' => true];
     }

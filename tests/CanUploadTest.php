@@ -7,6 +7,7 @@ use Mockery as m;
 use PHPUnit\Framework\TestCase;
 use Unisharp\Uploadable\CanUpload;
 use Unisharp\Uploadable\File;
+use Unisharp\Uploadable\Uploader;
 
 class CanUploadTest extends TestCase
 {
@@ -18,42 +19,42 @@ class CanUploadTest extends TestCase
             'type' => 'baz'
         ];
 
-        $mock = $this->getMockForTrait(CanUpload::class, [], '', true, true, true, ['saveToDb']);
-        $mock->expects($this->any())
-            ->method('saveToDb')
-            ->will($this->returnValue($file_data));
+        $mock = $this->getMockForTrait(CanUpload::class);
 
-        $file = m::mock(File::class);
+        $uploader = m::mock(Uploader::class);
+        $uploader->shouldReceive('saveDataWithFile')->once()->andReturn($file_data);
+        $uploader->shouldReceive('saveDataWithFile')->once()->andReturn($file_data);
 
         $request = m::mock(Request::class);
-        $request->shouldReceive('file')->with('file')->once()->andReturn($file);
-        $request->shouldReceive('file')->with('file')->once()->andReturn(null);
+        $request->shouldReceive('file')->once()->andReturn([]);
+        $request->shouldReceive('file')->once()->with('file_key')->andReturn(null);
+        $request->shouldReceive('file')->once()->andReturn(['foo']);
+        $request->shouldReceive('file')->once()->with('file_key')->andReturn('foo');
 
-        $this->assertEquals($file_data, $mock->upload($request, 'file'));
-        $this->assertEquals(null, $mock->upload($request, 'file'));
+        $this->assertNull($mock->upload($request, null));
+        $this->assertNull($mock->upload($request, 'file_key'));
+        $this->assertEquals($file_data, $mock->upload($request, null, $uploader));
+        $this->assertEquals($file_data, $mock->upload($request, 'file_key', $uploader));
     }
 
-    public function testSaveToDb()
+    public function testRemoveFiles()
     {
-        $file_data = [
-            'path' => 'foo/bar',
-            'name' => 'bar',
-            'type' => 'baz'
-        ];
+        $uploader = m::mock(Uploader::class);
+        $uploader->shouldReceive('dropDataWithFile')->andReturn(null)->once();
 
-        $file = m::mock(File::class);
-        $file->shouldReceive('store')->andReturn($file_data['path']);
-        $file->shouldReceive('getClientOriginalName')->andReturn($file_data['path']);
-        $file->shouldReceive('getMimeType')->andReturn($file_data['path']);
+        $file_model = $this->getMockBuilder(File::class)
+             ->disableOriginalConstructor()
+             ->getMock();
+        $file_model->id = 1;
 
-        $fake_model = m::mock(stdClass::class);
-        $fake_model->shouldReceive('create')->andReturn($file_data);
+        $mock = $this->getMockForTrait(CanUpload::class, [], '', true, true, true, ['files', 'whereIn', 'get']);
+        $mock->expects($this->any())->method('files')
+            ->will($this->returnValue($mock));
+        $mock->expects($this->any())->method('whereIn')
+            ->will($this->returnValue($mock));
+        $mock->expects($this->any())->method('get')
+            ->will($this->returnValue([$file_model]));
 
-        $mock = $this->getMockForTrait(CanUpload::class, [], '', true, true, true, ['files']);
-        $mock->expects($this->any())
-            ->method('files')
-            ->will($this->returnValue($fake_model));
-
-        $this->assertEquals($file_data, $mock->saveToDb($file));
+        $this->assertNull($mock->removeFiles([], $uploader));
     }
 }
