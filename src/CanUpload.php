@@ -2,8 +2,6 @@
 
 namespace Unisharp\Uploadable;
 
-use Illuminate\Http\Request;
-
 trait CanUpload
 {
     public function files()
@@ -11,10 +9,8 @@ trait CanUpload
         return $this->morphMany(File::class, 'uploadable');
     }
 
-    public function upload(Request $request, $file_key = null, $uploader = null)
+    public function upload($file, $uploader = null)
     {
-        $file = is_null($file_key) ? array_first($request->file()) : $request->file($file_key);
-
         if (is_null($file)) {
             return null;
         }

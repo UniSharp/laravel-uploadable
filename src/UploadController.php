@@ -10,7 +10,7 @@ class UploadController extends Controller
 {
     public function store(Request $request, $uploader = null)
     {
-        $file = ($uploader ?: new Uploader)->upload($request);
+        $file = ($uploader ?: new Uploader)->saveDataWithFile(array_first($request->file()));
 
         if (is_null($file)) {
             return ['success' => false];
@@ -19,9 +19,9 @@ class UploadController extends Controller
         return $file;
     }
 
-    public function delete(File $file, $uploader = null)
+    public function delete($file_id, $uploader = null)
     {
-        ($uploader ?: new Uploader)->removeFiles([$file->id]);
+        ($uploader ?: new Uploader)->dropDataWithFile($file_id);
 
         return ['success' => true];
     }

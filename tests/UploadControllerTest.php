@@ -12,29 +12,25 @@ class UploadControllerTest extends TestCase
 {
     public function testStore()
     {
-        $file_data = [
-            'path' => 'foo/bar',
-            'name' => 'bar',
-            'type' => 'baz'
-        ];
-
         $request = m::mock(Request::class);
+        $request->shouldReceive('file')->andReturn(['foo'])->once();
 
         $uploader = m::mock(Uploader::class);
-        $uploader->shouldReceive('upload')->andReturn(null)->once();
-        $uploader->shouldReceive('upload')->with($request)->andReturn($file_data)->once();
+        $uploader->shouldReceive('saveDataWithFile')->andReturn(null)->once();
+        $uploader->shouldReceive('saveDataWithFile')->andReturn('bar')->once();
+
         $response1 = (new UploadController)->store($request, $uploader);
         $response2 = (new UploadController)->store($request, $uploader);
 
         $this->assertFalse($response1['success']);
-        $this->assertEquals($file_data, $response2);
+        $this->assertEquals('bar', $response2);
     }
 
     public function testDelete()
     {
         $uploader = m::mock(Uploader::class);
-        $uploader->shouldReceive('removeFiles')->andReturn(null);
-        $response = (new UploadController)->delete(new File, $uploader);
+        $uploader->shouldReceive('dropDataWithFile')->andReturn(null);
+        $response = (new UploadController)->delete(1, $uploader);
 
         $this->assertTrue($response['success']);
     }
