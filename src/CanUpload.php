@@ -3,6 +3,7 @@
 namespace Unisharp\Uploadable;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 trait CanUpload
 {
@@ -19,16 +20,7 @@ trait CanUpload
             return null;
         }
 
-        return $this->saveToDb($file);
-    }
-
-    public function saveToDb($file)
-    {
-        return $this->files()->create([
-            'path' => $file->store('files', 'local'),
-            'name' => $file->getClientOriginalName(),
-            'type' => $file->getMimeType(),
-        ]);
+        return (new File)->saveFileData($file, $this);
     }
 
     public function removeFiles($arr_files_id = [])
