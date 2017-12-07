@@ -1,12 +1,10 @@
 <?php
 namespace Tests;
 
-use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Http\Request;
 use Mockery as m;
 use PHPUnit\Framework\TestCase;
 use Unisharp\Uploadable\CanUpload;
-use Unisharp\Uploadable\File;
 use Unisharp\Uploadable\Uploader;
 
 class CanUploadTest extends TestCase
@@ -42,9 +40,7 @@ class CanUploadTest extends TestCase
         $uploader = m::mock(Uploader::class);
         $uploader->shouldReceive('dropDataWithFile')->andReturn(null)->once();
 
-        $file_model = $this->getMockBuilder(File::class)
-             ->disableOriginalConstructor()
-             ->getMock();
+        $file_model = new \stdClass;
         $file_model->id = 1;
 
         $mock = $this->getMockForTrait(CanUpload::class, [], '', true, true, true, ['files', 'whereIn', 'get']);
