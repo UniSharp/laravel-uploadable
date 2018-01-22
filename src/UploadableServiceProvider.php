@@ -15,6 +15,9 @@ class UploadableServiceProvider extends ServiceProvider
     {
         $this->loadRoutesFrom(__DIR__.'/routes.php');
         $this->loadMigrationsFrom(__DIR__ . '/migrations');
+        $this->app->bind(Uploader::class, function () {
+            return new Uploader(new File);
+        });
     }
 
     /**

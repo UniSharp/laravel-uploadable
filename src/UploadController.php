@@ -8,7 +8,7 @@ use Unisharp\Uploadable\Uploader;
 
 class UploadController extends Controller
 {
-    public function store(Request $request, $uploader = null)
+    public function store(Request $request, Uploader $uploader)
     {
         $file = ($uploader ?: new Uploader)->saveDataWithFile(array_first($request->file()));
 
