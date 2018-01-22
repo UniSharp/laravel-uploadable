@@ -10,7 +10,7 @@ class UploadController extends Controller
 {
     public function store(Request $request, Uploader $uploader)
     {
-        $file = ($uploader ?: new Uploader)->saveDataWithFile(array_first($request->file()));
+        $file = $uploader->saveDataWithFile(array_first($request->file()));
 
         if (is_null($file)) {
             return ['success' => false];
