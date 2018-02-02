@@ -2,6 +2,7 @@
 
 namespace Unisharp\Uploadable;
 
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
 
 class UploadableServiceProvider extends ServiceProvider
@@ -13,7 +14,9 @@ class UploadableServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->loadRoutesFrom(__DIR__.'/routes.php');
+        if (Config::get('uploadable.use_default_route')) {
+            $this->loadRoutesFrom(__DIR__.'/routes.php');
+        }
         $this->loadMigrationsFrom(__DIR__ . '/migrations');
         $this->app->bind(Uploader::class, function () {
             return new Uploader(new File);
