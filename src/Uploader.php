@@ -2,6 +2,7 @@
 
 namespace Unisharp\Uploadable;
 
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 use Unisharp\Uploadable\File;
@@ -22,7 +23,9 @@ class Uploader
             'type' => $file->getMimeType(),
         ];
 
-        $this->orientateImage($file_data);
+        if (Config::get('uploadable.use_image_orientate')) {
+            $this->orientateImage($file_data);
+        }
 
         if (!is_null($morph_model)) {
             $file_data['uploadable_id'] = $morph_model->id;
