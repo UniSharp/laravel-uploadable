@@ -3,6 +3,7 @@
 namespace Unisharp\Uploadable;
 
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 use Unisharp\Uploadable\File;
 
 class Uploader
@@ -21,6 +22,8 @@ class Uploader
             'type' => $file->getMimeType(),
         ];
 
+        $this->orientateImage($file_data);
+
         if (!is_null($morph_model)) {
             $file_data['uploadable_id'] = $morph_model->id;
             $file_data['uploadable_type'] = get_class($morph_model);
@@ -36,5 +39,16 @@ class Uploader
         Storage::delete($file_model->path);
 
         $this->model->destroy($file_id);
+    }
+
+    public function orientateImage($file_data)
+    {
+        $path = storage_path('app' . DIRECTORY_SEPARATOR . $file_data['path']);
+
+        if (!exif_imagetype($path)) {
+            return;
+        }
+
+        Image::make($path)->orientate()->save();
     }
 }
