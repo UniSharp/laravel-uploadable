@@ -1,10 +1,14 @@
 <?php
 namespace Tests;
 
-use Illuminate\Support\Facades\Storage;
 use Mockery as m;
 use PHPUnit\Framework\TestCase;
+use Illuminate\Http\UploadedFile;
 use Unisharp\Uploadable\Uploader;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Filesystem\FilesystemAdapter;
 
 class FakeModel
 {
@@ -24,10 +28,11 @@ class UploaderTest extends TestCase
             'type' => 'baz'
         ];
 
-        $file = m::mock(\stdClass::class);
+        $file = m::mock(UploadedFile::class);
         $file->shouldReceive('store')->andReturn($file_data['path']);
         $file->shouldReceive('getClientOriginalName')->andReturn($file_data['name']);
         $file->shouldReceive('getMimeType')->andReturn($file_data['type']);
+        Config::shouldReceive('get')->with('uploadable.plugins', [])->andReturn([]);
 
         $fake_model = new FakeModel;
 
@@ -35,6 +40,25 @@ class UploaderTest extends TestCase
 
         $this->assertEquals($file_data, $uploader->saveDataWithFile($file, null));
 
+    }
+
+    public function testSaveDataWithFileWithModel()
+    {
+        $file_data = [
+            'path' => 'foo/bar',
+            'name' => 'bar',
+            'type' => 'baz'
+        ];
+
+        $file = m::mock(UploadedFile::class);
+        $file->shouldReceive('store')->andReturn($file_data['path']);
+        $file->shouldReceive('getClientOriginalName')->andReturn($file_data['name']);
+        $file->shouldReceive('getMimeType')->andReturn($file_data['type']);
+        Config::shouldReceive('get')->with('uploadable.plugins', [])->andReturn([]);
+
+        $fake_model = new FakeModel;
+
+        $uploader = new Uploader($fake_model);
         $model = new \stdClass;
         $model->id = 1;
 
@@ -44,6 +68,34 @@ class UploaderTest extends TestCase
         $uploader = new Uploader($fake_model);
 
         $this->assertArrayHasKey('uploadable_type', $uploader->saveDataWithFile($file, $model));
+    }
+
+    public function testUploadWithPlugin()
+    {
+        $file_data = [
+            'path' => 'foo/bar',
+            'name' => 'bar',
+            'type' => 'baz'
+        ];
+
+        $file = m::mock(UploadedFile::class);
+        $file->shouldReceive('store')->andReturn($file_data['path']);
+        $file->shouldReceive('getClientOriginalName')->andReturn($file_data['name']);
+        $file->shouldReceive('getMimeType')->andReturn($file_data['type']);
+        $handler = m::mock(ImageHandler::class);
+        $handler->shouldReceive('handle')->with(m::any(), m::type('string'));
+        App::shouldReceive('make')->andReturn($handler);
+        Storage::shouldReceive('disk')->andReturn(m::mock(FilesystemAdapter::class));
+
+        Config::shouldReceive('get')->with('uploadable.plugins', [])->andReturn([
+            ImageHandler::class
+        ]);
+
+        $fake_model = new FakeModel;
+
+        $uploader = new Uploader($fake_model);
+
+        $this->assertEquals($file_data, $uploader->saveDataWithFile($file, null));
     }
 
     public function testDropDataWithFile()

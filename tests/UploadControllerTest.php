@@ -1,19 +1,20 @@
 <?php
 namespace Tests;
 
-use Illuminate\Http\Request;
 use Mockery as m;
-use PHPUnit\Framework\TestCase;
+use Illuminate\Http\Request;
 use Unisharp\Uploadable\File;
-use Unisharp\Uploadable\UploadController;
+use PHPUnit\Framework\TestCase;
+use Illuminate\Http\UploadedFile;
 use Unisharp\Uploadable\Uploader;
+use Unisharp\Uploadable\UploadController;
 
 class UploadControllerTest extends TestCase
 {
     public function testStore()
     {
         $request = m::mock(Request::class);
-        $request->shouldReceive('file')->andReturn(['foo'])->once();
+        $request->shouldReceive('file')->andReturn(m::mock(UploadedFile::class))->once();
 
         $uploader = m::mock(Uploader::class);
         $uploader->shouldReceive('saveDataWithFile')->andReturn(null)->once();

@@ -3,8 +3,9 @@ namespace Tests;
 
 use Mockery as m;
 use PHPUnit\Framework\TestCase;
-use Unisharp\Uploadable\CanUpload;
+use Illuminate\Http\UploadedFile;
 use Unisharp\Uploadable\Uploader;
+use Unisharp\Uploadable\CanUpload;
 
 class CanUploadTest extends TestCase
 {
@@ -22,7 +23,7 @@ class CanUploadTest extends TestCase
         $uploader->shouldReceive('saveDataWithFile')->once()->andReturn($file_data);
 
         $this->assertNull($mock->upload(null, $uploader));
-        $this->assertEquals($file_data, $mock->upload('file', $uploader));
+        $this->assertEquals($file_data, $mock->upload(m::mock(UploadedFile::class), $uploader));
     }
 
     public function testRemoveFiles()
