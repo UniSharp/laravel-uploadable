@@ -3,6 +3,7 @@ namespace Unisharp\Uploadable\Plugins;
 
 use Illuminate\Filesystem\FilesystemAdapter;
 use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Config;
 
 class ImageHandler
 {
