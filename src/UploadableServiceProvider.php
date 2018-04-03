@@ -14,6 +14,11 @@ class UploadableServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->mergeConfigFrom(
+            __DIR__ . '/config/uploadable.php',
+            'uploadable'
+        );
+
         if (Config::get('uploadable.use_default_route')) {
             $this->loadRoutesFrom(__DIR__.'/routes.php');
         }
