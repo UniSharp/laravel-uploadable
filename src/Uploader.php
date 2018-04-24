@@ -17,10 +17,10 @@ class Uploader
         $this->model = $model ?: new File;
     }
 
-    public function saveDataWithFile(?UploadedFile $file = null, $morph_model = null)
+    public function saveDataWithFile(?UploadedFile $file = null, $morph_model = null, $path = 'files')
     {
         $file_data = [
-            'path' => $file->store('files', 'local'),
+            'path' => $file->store($path, 'local'),
             'name' => $file->getClientOriginalName(),
             'type' => $file->getMimeType(),
         ];
