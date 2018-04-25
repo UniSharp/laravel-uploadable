@@ -24,13 +24,27 @@ class ImageHandler
 
             $image->save();
 
+            $directory = $image->dirname;
             foreach (Config::get('uploadable.thumbs', []) as $name => $size) {
                 [$width, $height] = explode('x', $size);
+                $filename = $this->getThumbsDirectory($directory, $name) .
+                    $image->filename .
+                    '.' .
+                    $image->extension;
                 $image->resize($width, $height, function ($constraint) {
                     $constraint->aspectRatio();
                     $constraint->upsize();
-                })->save(rtrim($path, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . ltrim($name, DIRECTORY_SEPARATOR));
+                })->save($filename);
             }
         }
+    }
+
+    public function getThumbsDirectory($baseDir, $name)
+    {
+        $directory = $baseDir . DIRECTORY_SEPARATOR . $name . DIRECTORY_SEPARATOR;
+        if (!is_dir($directory)) {
+            mkdir($directory);
+        }
+        return $directory;
     }
 }

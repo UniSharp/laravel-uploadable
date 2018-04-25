@@ -23,6 +23,7 @@ class Uploader
             'path' => $file->store($path, 'local'),
             'name' => $file->getClientOriginalName(),
             'type' => $file->getMimeType(),
+            'size' => $file->getSize(),
         ];
 
         $classes = Config::get('uploadable.plugins', []);
