@@ -26,12 +26,13 @@ class ImageHandler
 
             $directory = $image->dirname;
             foreach (Config::get('uploadable.thumbs', []) as $name => $size) {
+                $img = clone $image;
                 [$width, $height] = explode('x', $size);
                 $filename = $this->getThumbsDirectory($directory, $name) .
-                    $image->filename .
+                    $img->filename .
                     '.' .
-                    $image->extension;
-                $image->resize($width, $height, function ($constraint) {
+                    $img->extension;
+                $img->resize($width, $height, function ($constraint) {
                     $constraint->aspectRatio();
                     $constraint->upsize();
                 })->save($filename);
