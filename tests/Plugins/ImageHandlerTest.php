@@ -3,6 +3,7 @@ namespace Tests;
 
 use Mockery;
 use PHPUnit\Framework\TestCase;
+use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Filesystem\FilesystemAdapter;
@@ -12,7 +13,12 @@ class ImageHandlerTest extends TestCase
 {
     public function testHandle()
     {
-        Image::shouldReceive('make')->andReturnSelf();
+        File::shouldReceive('exists')->andReturn(true);
+        Image::shouldReceive('make')
+            ->andReturnSelf()
+            ->andSet('dirname', 'foo')
+            ->andSet('filename', 'bar')
+            ->andSet('extension', 'png');
         Image::shouldReceive('mime')->andReturn('image/png');
         Image::shouldReceive('save')->andReturnSelf();
         Image::shouldReceive('save')->with('foo/bar/l')->andReturnSelf();

@@ -1,9 +1,10 @@
 <?php
 namespace UniSharp\Uploadable\Plugins;
 
-use Illuminate\Filesystem\FilesystemAdapter;
+use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Filesystem\FilesystemAdapter;
 
 class ImageHandler
 {
@@ -43,8 +44,8 @@ class ImageHandler
     public function getThumbsDirectory($baseDir, $name)
     {
         $directory = $baseDir . DIRECTORY_SEPARATOR . $name . DIRECTORY_SEPARATOR;
-        if (!is_dir($directory)) {
-            mkdir($directory);
+        if (!File::exists($directory)) {
+            File::makeDirectory($directory);
         }
         return $directory;
     }
