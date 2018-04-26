@@ -30,7 +30,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "UniSharp\\Uploadable\\UploadableServiceProvider"
+                "UniSharp\\Uploadable\\Providers\\UploadableServiceProvider"
             ]
         }
     }
