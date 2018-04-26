@@ -4,8 +4,8 @@ namespace Tests;
 use Mockery as m;
 use PHPUnit\Framework\TestCase;
 use Illuminate\Http\UploadedFile;
-use Unisharp\Uploadable\Uploader;
-use Unisharp\Uploadable\CanUpload;
+use UniSharp\Uploadable\Uploader;
+use UniSharp\Uploadable\CanUpload;
 
 class CanUploadTest extends TestCase
 {

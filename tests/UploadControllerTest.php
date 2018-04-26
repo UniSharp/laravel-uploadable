@@ -3,11 +3,10 @@ namespace Tests;
 
 use Mockery as m;
 use Illuminate\Http\Request;
-use Unisharp\Uploadable\File;
 use PHPUnit\Framework\TestCase;
 use Illuminate\Http\UploadedFile;
-use Unisharp\Uploadable\Uploader;
-use Unisharp\Uploadable\UploadController;
+use UniSharp\Uploadable\Http\Controllers\Api\V1\UploadController;
+use UniSharp\Uploadable\Uploader;
 
 class UploadControllerTest extends TestCase
 {

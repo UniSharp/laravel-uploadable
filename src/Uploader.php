@@ -1,8 +1,8 @@
 <?php
 
-namespace Unisharp\Uploadable;
+namespace UniSharp\Uploadable;
 
-use Unisharp\Uploadable\File;
+use UniSharp\Uploadable\File;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\App;
 use Intervention\Image\Facades\Image;

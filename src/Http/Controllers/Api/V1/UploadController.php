@@ -1,10 +1,10 @@
 <?php
 
-namespace Unisharp\Uploadable;
+namespace UniSharp\Uploadable\Http\Controllers\Api\V1;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Unisharp\Uploadable\Uploader;
+use UniSharp\Uploadable\Uploader;
 
 class UploadController extends Controller
 {

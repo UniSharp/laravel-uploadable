@@ -4,7 +4,7 @@ namespace Tests;
 use Mockery as m;
 use PHPUnit\Framework\TestCase;
 use Illuminate\Http\UploadedFile;
-use Unisharp\Uploadable\Uploader;
+use UniSharp\Uploadable\Uploader;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Storage;

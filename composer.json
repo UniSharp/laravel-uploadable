@@ -23,14 +23,14 @@
     },
     "autoload": {
         "psr-4": {
-            "Unisharp\\Uploadable\\": "src/"
+            "UniSharp\\Uploadable\\": "src/"
         }
     },
     "minimum-stability": "dev",
     "extra": {
         "laravel": {
             "providers": [
-                "Unisharp\\Uploadable\\UploadableServiceProvider"
+                "UniSharp\\Uploadable\\UploadableServiceProvider"
             ]
         }
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Unisharp\Uploadable;
+namespace UniSharp\Uploadable;
 
 use Illuminate\Database\Eloquent\Model;
 

@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Filesystem\FilesystemAdapter;
-use Unisharp\Uploadable\Plugins\ImageHandler;
+use UniSharp\Uploadable\Plugins\ImageHandler;
 
 class ImageHandlerTest extends TestCase
 {

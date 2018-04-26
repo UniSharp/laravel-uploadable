@@ -1,6 +1,6 @@
 <?php
 
-namespace Unisharp\Uploadable;
+namespace UniSharp\Uploadable;
 
 trait CanUpload
 {

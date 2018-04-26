@@ -1,5 +1,5 @@
 <?php
-namespace Unisharp\Uploadable\Plugins;
+namespace UniSharp\Uploadable\Plugins;
 
 use Illuminate\Filesystem\FilesystemAdapter;
 use Intervention\Image\Facades\Image;
