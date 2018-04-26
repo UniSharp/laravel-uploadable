@@ -25,13 +25,15 @@ class UploaderTest extends TestCase
         $file_data = [
             'path' => 'foo/bar',
             'name' => 'bar',
-            'type' => 'baz'
+            'type' => 'baz',
+            'size' => 0
         ];
 
         $file = m::mock(UploadedFile::class);
         $file->shouldReceive('store')->andReturn($file_data['path']);
         $file->shouldReceive('getClientOriginalName')->andReturn($file_data['name']);
         $file->shouldReceive('getMimeType')->andReturn($file_data['type']);
+        $file->shouldReceive('getSize')->andReturn($file_data['size']);
         Config::shouldReceive('get')->with('uploadable.plugins', [])->andReturn([]);
 
         $fake_model = new FakeModel;
@@ -47,13 +49,15 @@ class UploaderTest extends TestCase
         $file_data = [
             'path' => 'foo/bar',
             'name' => 'bar',
-            'type' => 'baz'
+            'type' => 'baz',
+            'size' => 0
         ];
 
         $file = m::mock(UploadedFile::class);
         $file->shouldReceive('store')->andReturn($file_data['path']);
         $file->shouldReceive('getClientOriginalName')->andReturn($file_data['name']);
         $file->shouldReceive('getMimeType')->andReturn($file_data['type']);
+        $file->shouldReceive('getSize')->andReturn($file_data['size']);
         Config::shouldReceive('get')->with('uploadable.plugins', [])->andReturn([]);
 
         $fake_model = new FakeModel;
@@ -75,13 +79,15 @@ class UploaderTest extends TestCase
         $file_data = [
             'path' => 'foo/bar',
             'name' => 'bar',
-            'type' => 'baz'
+            'type' => 'baz',
+            'size' => 0
         ];
 
         $file = m::mock(UploadedFile::class);
         $file->shouldReceive('store')->andReturn($file_data['path']);
         $file->shouldReceive('getClientOriginalName')->andReturn($file_data['name']);
         $file->shouldReceive('getMimeType')->andReturn($file_data['type']);
+        $file->shouldReceive('getSize')->andReturn($file_data['size']);
         $handler = m::mock(ImageHandler::class);
         $handler->shouldReceive('handle')->with(m::any(), m::type('string'));
         App::shouldReceive('make')->andReturn($handler);
