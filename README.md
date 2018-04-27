@@ -19,7 +19,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use UniSharp\Uploadable;
 
-class Movie extends Model
+class Product extends Model
 {
     use CanUpload;
 }
