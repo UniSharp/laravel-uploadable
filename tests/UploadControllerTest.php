@@ -5,8 +5,10 @@ use Mockery as m;
 use Illuminate\Http\Request;
 use PHPUnit\Framework\TestCase;
 use Illuminate\Http\UploadedFile;
-use UniSharp\Uploadable\Http\Controllers\Api\V1\UploadController;
 use UniSharp\Uploadable\Uploader;
+use Illuminate\Container\Container;
+use Illuminate\Support\Facades\App;
+use UniSharp\Uploadable\Http\Controllers\Api\V1\UploadController;
 
 class UploadControllerTest extends TestCase
 {
@@ -28,10 +30,15 @@ class UploadControllerTest extends TestCase
 
     public function testDelete()
     {
-        $uploader = m::mock(Uploader::class);
-        $uploader->shouldReceive('dropDataWithFile')->andReturn(null);
-        $response = (new UploadController)->delete(1, $uploader);
+        $app = new Container();
 
+        $app->bind(Uploader::class, function () {
+            $uploader = m::mock(Uploader::class);
+            $uploader->shouldReceive('dropDataWithFile')->andReturn(null);
+            return $uploader;
+        });
+        $class = UploadController::class;
+        $response = $app->call("{$class}@delete", ['file_id' => 1]);
         $this->assertTrue($response['success']);
     }
 }

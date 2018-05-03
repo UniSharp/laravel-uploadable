@@ -19,10 +19,9 @@ class UploadController extends Controller
         return $file;
     }
 
-    public function delete($file_id, $uploader = null)
+    public function delete($file_id, Uploader $uploader)
     {
-        ($uploader ?: new Uploader)->dropDataWithFile($file_id);
-
+        $uploader->dropDataWithFile($file_id);
         return ['success' => true];
     }
 }
