@@ -4,6 +4,8 @@ namespace UniSharp\Uploadable\Http\Controllers\Api\V1;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use UniSharp\Uploadable\Contracts\FileContract;
+use UniSharp\Uploadable\File;
 use UniSharp\Uploadable\Uploader;
 
 class UploadController extends Controller
@@ -19,9 +21,9 @@ class UploadController extends Controller
         return $file;
     }
 
-    public function delete($file_id, $uploader = null)
+    public function delete(FileContract $file, Uploader $uploader)
     {
-        ($uploader ?: new Uploader)->dropDataWithFile($file_id);
+        $uploader->dropDataWithFile($file->id);
 
         return ['success' => true];
     }

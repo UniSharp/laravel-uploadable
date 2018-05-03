@@ -4,6 +4,8 @@ namespace UniSharp\Uploadable\Providers;
 
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
+use UniSharp\Uploadable\Contracts\FileContract;
+use UniSharp\Uploadable\File;
 
 class UploadableServiceProvider extends ServiceProvider
 {
@@ -20,8 +22,13 @@ class UploadableServiceProvider extends ServiceProvider
         );
 
         $this->loadMigrationsFrom(__DIR__ . '/../migrations');
+
         $this->app->bind(Uploader::class, function () {
             return new Uploader(new File);
+        });
+
+        $this->app->bind(FileContract::class, function () {
+            return new File();
         });
     }
 
