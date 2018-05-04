@@ -27,9 +27,7 @@ class UploadableServiceProvider extends ServiceProvider
             return new Uploader(new File);
         });
 
-        $this->app->bind(FileContract::class, function () {
-            return new File();
-        });
+        $this->app->bind(FileContract::class, File::class);
     }
 
     /**
