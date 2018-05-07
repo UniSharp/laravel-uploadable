@@ -91,6 +91,7 @@ UniSharp\Uploadable\UploaderManager::route(['store'], function () {
 Customize image handler
 
 ```php
+use Intervention\Image\Facades\Image;
 use Illuminate\Filesystem\FilesystemAdapter;
 
 class CustomImageHandler {
