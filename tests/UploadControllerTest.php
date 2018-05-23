@@ -11,9 +11,6 @@ use UniSharp\Uploadable\Contracts\FileContract;
 use UniSharp\Uploadable\File;
 use UniSharp\Uploadable\Http\Controllers\Api\V1\UploadController;
 use UniSharp\Uploadable\Uploader;
-use Illuminate\Container\Container;
-use Illuminate\Support\Facades\App;
-use UniSharp\Uploadable\Http\Controllers\Api\V1\UploadController;
 
 class UploadControllerTest extends TestCase
 {
