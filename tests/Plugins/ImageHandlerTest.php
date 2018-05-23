@@ -14,12 +14,12 @@ class ImageHandlerTest extends TestCase
     public function testHandle()
     {
         File::shouldReceive('exists')->andReturn(true);
+        File::shouldReceive('mimeType')->andReturn('image/png');
         Image::shouldReceive('make')
             ->andReturnSelf()
             ->andSet('dirname', 'foo')
             ->andSet('filename', 'bar')
             ->andSet('extension', 'png');
-        Image::shouldReceive('mime')->andReturn('image/png');
         Image::shouldReceive('save')->andReturnSelf();
         Image::shouldReceive('save')->with('foo/bar/l')->andReturnSelf();
         Image::shouldReceive('save')->with('foo/bar/m')->andReturnSelf();

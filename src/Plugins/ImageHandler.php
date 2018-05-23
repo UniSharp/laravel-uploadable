@@ -17,8 +17,10 @@ class ImageHandler
 
     public function handle(FilesystemAdapter $storage, $path)
     {
-        $image = Image::make($path = $storage->path($path));
-        if (in_array($image->mime(), $this->supportedMime)) {
+        $mimeType = File::mimeType($path = $storage->path($path));
+
+        if (in_array($mimeType, $this->supportedMime)) {
+            $image = Image::make($path);
             if (Config::get('uploadable.use_image_orientate', false)) {
                 $image->orientate();
             }
