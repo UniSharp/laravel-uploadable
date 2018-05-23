@@ -17,13 +17,13 @@ class ImageHandler
 
     public function handle(FilesystemAdapter $storage, $path)
     {
-        $image = Image::make($storage->path($path));
+        $image = Image::make($path = $storage->path($path));
         if (in_array($image->mime(), $this->supportedMime)) {
             if (Config::get('uploadable.use_image_orientate', false)) {
                 $image->orientate();
             }
 
-            $image->save();
+            $image->save($path, 100);
 
             $directory = $image->dirname;
             foreach (Config::get('uploadable.thumbs', []) as $name => $size) {
@@ -36,7 +36,7 @@ class ImageHandler
                 $img->resize($width, $height, function ($constraint) {
                     $constraint->aspectRatio();
                     $constraint->upsize();
-                })->save($filename);
+                })->save($filename, 100);
             }
         }
     }
