@@ -33,7 +33,7 @@ return [
 
 ## Usages
 
-Use trait in the model
+### Use trait in the model
 
 ```php
 
@@ -48,7 +48,7 @@ class Product extends Model
 }
 ```
 
-Upload and Delete the file
+### Manually upload and Delete files
 
 ```php
 // Upload a file
@@ -64,7 +64,7 @@ $files = $product->files->pluck('id');
 $product->removeFiles($files);
 ```
 
-Include route into api.php
+### Upload/Delete through APIs
 
 ```php
 
@@ -81,7 +81,9 @@ UniSharp\Uploadable\UploaderManager::route(['store'], function () {
 
 ```
 
-Customize image handler
+### Customize image handler
+
+Image Handler
 
 ```php
 use Intervention\Image\Facades\Image;
