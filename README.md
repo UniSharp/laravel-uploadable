@@ -40,7 +40,7 @@ Use trait in the model
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use UniSharp\Uploadable;
+use Unisharp\Uploadable\CanUpload;
 
 class Product extends Model
 {
