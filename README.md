@@ -52,23 +52,16 @@ Upload and Delete the file
 
 ```php
 // Upload a file
-
 $product = new Product();
-
 $product->upload(request()->file());
 
 // Delete a file
-
 $file = $product->files()->first();
-
 $product->removeFiles($file->id);
 
 // Delete files
-
 $files = $product->files->pluck('id');
-
 $product->removeFiles($files);
-
 ```
 
 Include route into api.php
