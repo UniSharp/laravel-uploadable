@@ -45,6 +45,11 @@ use Unisharp\Uploadable\CanUpload;
 class Product extends Model
 {
     use CanUpload;
+    
+    public function image()
+    {
+        return $this->morphOne(Image::class, 'imageable');
+    }
 }
 ```
 
