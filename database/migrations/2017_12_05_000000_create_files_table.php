@@ -17,8 +17,9 @@ class CreateFilesTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('path');
-            $table->string('type');
-            $table->integer('size')->unsigned();
+            $table->string('mime');
+            $table->bigInteger('size')->unsigned();
+            $table->text('extra')->nullable();
             $table->nullableMorphs('uploadable');
             $table->timestamps();
         });

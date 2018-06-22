@@ -3,26 +3,19 @@
 namespace UniSharp\Uploadable\Http\Controllers\Api\V1;
 
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
-use UniSharp\Uploadable\Contracts\FileContract;
 use UniSharp\Uploadable\Uploader;
+use Illuminate\Routing\Controller;
 
 class UploadController extends Controller
 {
-    public function store(Request $request, Uploader $uploader)
+    public function store(Request $request)
     {
-        $file = $uploader->saveDataWithFile(array_first($request->file()));
-
-        if (is_null($file)) {
-            return ['success' => false];
-        }
-
-        return $file;
+        return Uploader::upload(array_first($request->file()));
     }
 
-    public function delete(FileContract $file, Uploader $uploader)
+    public function destroy(File $file)
     {
-        $uploader->dropDataWithFile($file->id);
+        $file->remove();
 
         return ['success' => true];
     }

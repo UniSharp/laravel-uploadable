@@ -10,11 +10,12 @@
         }
     ],
     "require": {
-        "php": "^5.6.4 || ^7.0",
-        "illuminate/support": ">=5.0.0",
-        "illuminate/database": ">=5.0.0",
-        "illuminate/filesystem": ">=5.0.0",
-        "illuminate/routing": ">=5.0.0",
+        "illuminate/database": "^5.5",
+        "illuminate/container": "^5.5",
+        "illuminate/events": "^5.5",
+        "illuminate/support": "^5.5",
+        "illuminate/filesystem": "^5.5",
+        "illuminate/routing": "^5.5",
         "intervention/image": "^2.4"
     },
     "require-dev": {
@@ -23,10 +24,13 @@
     },
     "autoload": {
         "psr-4": {
-            "UniSharp\\Uploadable\\": "src/"
-        }
+            "UniSharp\\Uploadable\\": "src",
+            "Tests\\": "tests"
+        },
+        "classmap": [
+            "database"
+        ]
     },
-    "minimum-stability": "dev",
     "extra": {
         "laravel": {
             "providers": [

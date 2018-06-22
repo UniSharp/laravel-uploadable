@@ -1,6 +1,6 @@
 <?php
 
-use UniSharp\Uploadable\Plugins\ImageHandler;
+use UniSharp\Uploadable\Plugins\ImagePlugin;
 
 return [
     'use_image_orientate' => false,
@@ -10,6 +10,8 @@ return [
         'l' => '480x480'
     ],
     'plugins' => [
-        ImageHandler::class
+        'image' => [
+            ImagePlugin::class
+        ]
     ]
 ];

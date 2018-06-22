@@ -2,22 +2,32 @@
 
 namespace UniSharp\Uploadable;
 
+use Illuminate\Support\Facades\URL;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 use UniSharp\Uploadable\Contracts\FileContract;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
-class File extends Model implements FileContract
+class File extends Model
 {
-    protected $guarded = [];
+    protected $fillable = ['name', 'mime', 'size', 'path', 'extra'];
 
-    protected $appends = ['url_path'];
+    public static function boot(): void
+    {
+        parent::boot();
 
-    public function uploadable()
+        static::deleted(function ($model) {
+            Storage::delete($model->attributes['path']);
+        });
+    }
+
+    public function uploadable(): MorphTo
     {
         return $this->morphTo();
     }
 
-    public function getUrlPathAttribute()
+    public function getPathAttribute(): string
     {
-        return url($this->path);
+        return URL::to($this->attributes['path']);
     }
 }
