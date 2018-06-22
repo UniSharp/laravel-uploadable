@@ -14,7 +14,7 @@ class UploadableServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->mergeConfigFrom(__DIR__ . '/../../config/uploadable.php', 'uploadable');
-        $this->loadMigrationsFrom(__DIR__ . '/../../migrations');
+        $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
     }
 
     /**
