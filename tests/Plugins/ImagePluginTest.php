@@ -9,6 +9,7 @@ use UniSharp\Uploadable\Uploader;
 use Illuminate\Container\Container;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Storage;
 use UniSharp\Uploadable\Plugins\ImagePlugin;
 use Illuminate\Support\Facades\File as FileFacade;
 use Illuminate\Contracts\Filesystem\Factory as FilesystemFactory;
@@ -27,6 +28,9 @@ class ImagePluginTest extends TestCase
             return $mock;
         });
 
+        Storage::shouldReceive('disk->getDriver->getAdapter->getPathPrefix')
+            ->andReturn('/app');
+
         Image::shouldReceive('make')
             ->once()
             ->andSet('dirname', 'foo')
@@ -35,7 +39,7 @@ class ImagePluginTest extends TestCase
             ->andReturnSelf();
 
         Image::shouldReceive('orientate')->once();
-        Image::shouldReceive('save')->with('path', 100)->once();
+        Image::shouldReceive('save')->with('/app/path', 100)->once();
         Image::shouldReceive('resize')->with(96, 96, m::type('closure'))->once()->andReturnSelf();
         Image::shouldReceive('save')->with('foo/s/bar.png', 100)->once();
         Image::shouldReceive('resize')->with(256, 256, m::type('closure'))->once()->andReturnSelf();

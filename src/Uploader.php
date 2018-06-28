@@ -5,6 +5,7 @@ namespace UniSharp\Uploadable;
 use UniSharp\Uploadable\File;
 use UniSharp\Uploadable\Image;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Storage;
 
 class Uploader
 {
@@ -36,7 +37,9 @@ class Uploader
         $path = $file->store(str_plural($type));
 
         foreach (Config::get("uploadable.plugins.{$type}", []) as $plugin) {
-            (new $plugin)->handle($path);
+            $storagePath = Storage::disk('local')->getDriver()->getAdapter()->getPathPrefix();
+            $fullPath = "{$storagePath}/{$path}";
+            (new $plugin)->handle($fullPath);
         }
 
         return $class::create(compact('name', 'mime', 'size', 'path'));
