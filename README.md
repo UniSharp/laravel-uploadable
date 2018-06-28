@@ -130,7 +130,7 @@ return [
 [ico-code-quality]: https://img.shields.io/scrutinizer/g/UniSharp/laravel-uploadable.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/UniSharp/laravel-uploadable.svg?style=flat-square
 
-[link-packagist]: https://packagist.org/packages/unisharp/categorizable
+[link-packagist]: https://packagist.org/packages/unisharp/laravel-uploadable
 [link-travis]: https://travis-ci.org/UniSharp/laravel-uploadable
 [link-scrutinizer]: https://scrutinizer-ci.com/g/UniSharp/laravel-uploadable/code-structure
 [link-code-quality]: https://scrutinizer-ci.com/g/UniSharp/laravel-uploadable
