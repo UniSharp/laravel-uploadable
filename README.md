@@ -1,5 +1,12 @@
 # Uploadable
 
+[![Latest Version on Packagist][ico-version]][link-packagist]
+[![Software License][ico-license]](LICENSE.md)
+[![Build Status][ico-travis]][link-travis]
+[![Coverage Status][ico-scrutinizer]][link-scrutinizer]
+[![Quality Score][ico-code-quality]][link-code-quality]
+[![Total Downloads][ico-downloads]][link-downloads]
+
 A simple package to attach files to a eloquent model.
 
 ## Installation
@@ -115,3 +122,18 @@ return [
     ]
 ];
 ```
+
+[ico-version]: https://img.shields.io/packagist/v/UniSharp/laravel-uploadable.svg?style=flat-square
+[ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
+[ico-travis]: https://img.shields.io/travis/UniSharp/laravel-uploadable/master.svg?style=flat-square
+[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/UniSharp/laravel-uploadable.svg?style=flat-square
+[ico-code-quality]: https://img.shields.io/scrutinizer/g/UniSharp/laravel-uploadable.svg?style=flat-square
+[ico-downloads]: https://img.shields.io/packagist/dt/UniSharp/laravel-uploadable.svg?style=flat-square
+
+[link-packagist]: https://packagist.org/packages/unisharp/categorizable
+[link-travis]: https://travis-ci.org/UniSharp/laravel-uploadable
+[link-scrutinizer]: https://scrutinizer-ci.com/g/UniSharp/laravel-uploadable/code-structure
+[link-code-quality]: https://scrutinizer-ci.com/g/UniSharp/laravel-uploadable
+[link-downloads]: https://packagist.org/packages/UniSharp/laravel-uploadable
+[link-author]: https://github.com/Nehemis1615
+[link-contributors]: ../../contributors
