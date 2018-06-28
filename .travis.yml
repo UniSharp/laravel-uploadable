@@ -1,29 +1,23 @@
 dist: trusty
 language: php
-
 php:
-  - 7.1
-  - 7.2
-
-# This triggers builds to run on the new TravisCI infrastructure.
-# See: http://docs.travis-ci.com/user/workers/container-based-infrastructure/
+- 7.1
+- 7.2
 sudo: false
-
-## Cache composer
 cache:
   directories:
-    - $HOME/.composer/cache
-
+  - "$HOME/.composer/cache"
 before_script:
-  - travis_retry composer update ${COMPOSER_FLAGS} --no-interaction --prefer-dist
-
+- travis_retry composer update ${COMPOSER_FLAGS} --no-interaction --prefer-dist
 script:
-  - vendor/bin/phpcs --standard=psr2 src/
-  - vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
-
+- vendor/bin/phpcs --standard=psr2 src/
+- vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
 after_script:
-  - |
-    if [[ "$TRAVIS_PHP_VERSION" != 'hhvm' && "$TRAVIS_PHP_VERSION" != '7.0' ]]; then
-      wget https://scrutinizer-ci.com/ocular.phar
-      php ocular.phar code-coverage:upload --format=php-clover coverage.clover
-    fi
+- |
+  if [[ "$TRAVIS_PHP_VERSION" != 'hhvm' && "$TRAVIS_PHP_VERSION" != '7.0' ]]; then
+    wget https://scrutinizer-ci.com/ocular.phar
+    php ocular.phar code-coverage:upload --format=php-clover coverage.clover
+  fi
+notifications:
+  slack:
+    secure: xLeHF95aLIQRP+KN0NU1J1BShxUqmyinfsIrURlKiwjMVWx7xFrH2jct7FmvugnnoOqF7aAPZF1dLiEvNjNvaOXb3Y0pSKBDAce0BrxaEtMjz4sR/+9G//tWTfQh0KJuI6t31lfiqZNAVO5P1+oTi8QFdNZBGkWKI+kLvTvcWK/jj618KAs3IFyhCE8AHFlcZEwqDM2AwNfAt13znkcq8nMHMaIKEinijXIObsRXPQLX+HRpCFCQzKmJaBNop1YCgaK/fbHyQGQhJamjZ8yyCPav0vYa5cDJrwJjzuBe7iyG+qf7rG/Q53qWcpBLw00KuYtemhqbjQ2nFctElAPKpigoJ91XzJpmTUrsCcM9rUuoyYj4g/gZu2212gXkrEFgBqLNkI4yzKACSk0nybUjI4HXWrghtiK2EGRM2xaHXM3dBvTUqOr+nes/1x4L9p1k3AwnZ/FUqZXMqwrTOVBESkkIwBsaOOqwmDSKlTMmE9o8IdwhMT/QEud8CfiZucPQ4EPuEkO5H3C6VzhgKKKXfxIhDnv5CJZBfMx+GpBxQXeHE+WphHbKbkYUCkkv1tit6z4mpuSN2xLGpjQN78JyRzZ/3qR6SgYAShDfKAqUbis1mR0vppPo0YMbDKFF5LRtJrQBeX0sx4uBCnQnC0CR/UK7yQyWhULvTJKDCcF/Llk=
