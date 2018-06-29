@@ -3,6 +3,7 @@
 namespace UniSharp\Uploadable\Http\Controllers\Api\V1;
 
 use Illuminate\Http\Request;
+use UniSharp\Uploadable\File;
 use UniSharp\Uploadable\Uploader;
 use Illuminate\Routing\Controller;
 

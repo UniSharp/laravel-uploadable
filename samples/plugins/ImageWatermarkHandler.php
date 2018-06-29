@@ -1,8 +1,8 @@
 <?php
 namespace App\Plugins;
 
-use Illuminate\Support\Facades\Config;
 use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Filesystem\FilesystemAdapter;
 
 class ImageWatermarkHandler extends ImageHandler

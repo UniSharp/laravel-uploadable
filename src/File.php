@@ -5,7 +5,6 @@ namespace UniSharp\Uploadable;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
-use UniSharp\Uploadable\Contracts\FileContract;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class File extends Model
