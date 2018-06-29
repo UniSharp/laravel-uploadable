@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests;
+namespace Tests\Plugins;
 
 use Mockery as m;
 use Tests\TestCase;
@@ -28,8 +28,7 @@ class ImagePluginTest extends TestCase
             return $mock;
         });
 
-        Storage::shouldReceive('disk->getDriver->getAdapter->getPathPrefix')
-            ->andReturn('/app');
+        Storage::shouldReceive('disk->getDriver->getAdapter->getPathPrefix')->andReturn('storage');
 
         Image::shouldReceive('make')
             ->once()
@@ -39,7 +38,7 @@ class ImagePluginTest extends TestCase
             ->andReturnSelf();
 
         Image::shouldReceive('orientate')->once();
-        Image::shouldReceive('save')->with('/app/path', 100)->once();
+        Image::shouldReceive('save')->with('storage/path', 100)->once();
         Image::shouldReceive('resize')->with(96, 96, m::type('closure'))->once()->andReturnSelf();
         Image::shouldReceive('save')->with('foo/s/bar.png', 100)->once();
         Image::shouldReceive('resize')->with(256, 256, m::type('closure'))->once()->andReturnSelf();

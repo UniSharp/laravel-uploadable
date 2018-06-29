@@ -18,22 +18,15 @@ class ImagePlugin
 
         $image->save($path, 100);
 
-        $directory = $image->dirname;
-
         foreach (Config::get('uploadable.thumbs', []) as $name => $size) {
             $image = clone $image;
 
             [$width, $height] = explode('x', $size);
 
-            $filename = $this->getThumbsDirectory($directory, $name) .
-                $image->filename .
-                '.' .
-                $image->extension;
-
             $image->resize($width, $height, function ($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
-            })->save($filename, 100);
+            })->save($this->getThumbFilePath($image, $name), 100);
         }
     }
 
@@ -46,5 +39,13 @@ class ImagePlugin
         }
 
         return $directory;
+    }
+
+    public function getThumbFilePath($image, $name)
+    {
+        return $this->getThumbsDirectory($image->dirname, $name) .
+            $image->filename .
+            '.' .
+            $image->extension;
     }
 }

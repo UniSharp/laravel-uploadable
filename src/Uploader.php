@@ -38,7 +38,8 @@ class Uploader
 
         foreach (Config::get("uploadable.plugins.{$type}", []) as $plugin) {
             $storagePath = Storage::disk('local')->getDriver()->getAdapter()->getPathPrefix();
-            $fullPath = "{$storagePath}/{$path}";
+            $fullPath = $storagePath . DIRECTORY_SEPARATOR . $path;
+
             (new $plugin)->handle($fullPath);
         }
 
