@@ -15,7 +15,7 @@ class UploaderManager
             }
 
             if (in_array('delete', $enable)) {
-                Route::delete('{file}', $namespace . 'UploadController@delete');
+                Route::delete('{file}', $namespace . 'UploadController@destroy');
             }
 
             if ($callback) {
