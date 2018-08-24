@@ -19,14 +19,14 @@ class ImagePlugin
         $image->save($path, 100);
 
         foreach (Config::get('uploadable.thumbs', []) as $name => $size) {
-            $image = clone $image;
+            $img = clone $image;
 
             [$width, $height] = explode('x', $size);
 
-            $image->resize($width, $height, function ($constraint) {
+            $img->resize($width, $height, function ($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
-            })->save($this->getThumbFilePath($image, $name), 100);
+            })->save($this->getThumbFilePath($img, $name), 100);
         }
     }
 
