@@ -25,8 +25,12 @@ class File extends Model
         return $this->morphTo();
     }
 
-    public function getPathAttribute(): string
+    public function getPathAttribute(): ?string
     {
+        if (!array_key_exists('path', $this->attributes)) {
+            return null;
+        }
+
         return URL::to($this->attributes['path']);
     }
 }
