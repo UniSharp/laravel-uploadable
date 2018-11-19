@@ -22,7 +22,7 @@ trait WithImages
 
     public function image(): MorphOne
     {
-        return $this->morphOne(Image::class, 'uploadable')->latest('id');
+        return $this->morphOne(Image::class, 'uploadable')->whereNull('extra')->latest('id');
     }
 
     public function images(): MorphMany
